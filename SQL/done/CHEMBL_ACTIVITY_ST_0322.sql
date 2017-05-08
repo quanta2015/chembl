@@ -1,0 +1,57 @@
+
+
+-- create chembl_activity_st
+CREATE OR REPLACE VIEW CHEMBL_ACTIVITY_ST AS
+SELECT
+  a.activity_id,
+  max(a.activity_record_id) as  activity_record_id,
+  max(a.cpd_molregno) as  cpd_molregno,
+  max(a.cpd_chembl_id) as  cpd_chembl_id,
+  max(a.activity_standard_relation) as  activity_standard_relation,
+  max(a.activity_standard_value) as  activity_standard_value,
+  max(a.activity_standard_units) as  activity_standard_units,
+  max(a.activity_standard_flag) as  activity_standard_flag,
+  max(a.activity_standard_type) as  activity_standard_type,
+  max(a.activity_activity_comment) as  activity_activity_comment,
+  max(a.activity_data_validity_comment) as  activity_data_validity_comment,
+  max(a.activity_potential_duplicate) as  activity_potential_duplicate,
+  max(a.activity_pchembl_value) as  activity_pchembl_value,
+  max(a.doc_chembl_id) as  doc_chembl_id,
+  max(a.assay_description) as  assay_description,
+  max(a.assay_type) as  assay_type,
+  max(a.assay_relationship_type) as  assay_relationship_type,
+  max(a.assay_tax_id) as  assay_tax_id,
+  max(a.assay_organism) as  assay_organism,
+  max(a.assay_strain) as  assay_strain,
+  max(a.assay_test_type) as  assay_test_type,
+  max(a.assay_category) as  assay_category,
+  max(a.assay_confidence_score) as  assay_confidence_score,
+  max(a.assay_curated_by) as  assay_curated_by,
+  max(a.assay_chembl_id) as  assay_chembl_id,
+  max(a.tissue_name) as  tissue_name,
+  max(a.tissue_chembl_id) as  tissue_chembl_id,
+  max(a.cell_name) as  cell_name,
+  max(a.cell_chembl_id) as  cell_chembl_id,
+  max(a.target_type) as  target_type,
+  max(a.target_pref_name) as  target_pref_name,
+  max(a.target_tax_id) as  target_tax_id,
+  max(a.target_organism) as  target_organism,
+  max(a.target_species_group_flag) as  target_species_group_flag,
+  max(a.target_domain_name) as  target_domain_name,
+  max(a.target_domain_desc) as  target_domain_desc,
+  max(a.target_comp_type) as  target_comp_type,
+  max(a.target_comp_tax_id) as  target_comp_tax_id,
+  max(a.target_comp_organism) as  target_comp_organism,
+  max(a.protein_short_name) as  protein_short_name,
+  max(a.protein_definition) as  protein_definition,
+  max(a.protein_class_level) as  protein_class_level,
+  max(a.target_homologue) as  target_homologue,
+  max(a.target_chembl_id) as  target_chembl_id,
+  replace(rm_same_str(strcat_clob(a.target_comp_desc),','),',',';') as  target_comp_desc,
+  replace(rm_same_str(strcat_clob(a.target_comp_acc),','),',',';') as  target_comp_acc,
+  replace(rm_same_str(strcat_clob(a.target_comp_go_id),','),',',';') as  target_comp_go_id,
+  replace(rm_same_str(strcat_clob(a.target_comp_go_path),','),',',';') as  target_comp_go_path
+FROM
+    v_ACTIVITY_CHEMBL a
+GROUP BY
+    a.activity_id;
